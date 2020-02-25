@@ -39,7 +39,7 @@ $csv = 'c:\temp\paststudents.csv'
 
 
 # Parameters to pass through in API call.
-$parameters  = '{"currentstatus":"noncurrent"}'
+$parameters  = '{"currentstatus":"past"}'
 
 # Configure TASS URL parameters.
 
