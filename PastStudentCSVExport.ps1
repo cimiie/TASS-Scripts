@@ -8,7 +8,7 @@
 # Example date of leaving = 22/02/2020, running this script at 3:00AM 23/02/2020 will return all students where dol = 22/02/2020
 
 
-# set below variables as required
+# Set below variables as required
 
 # Generated in TASS API Gateway Maintenance program.
 $tokenKey    = 'x8FWQUedjyiUGlTf5appPQ=='
@@ -37,11 +37,11 @@ $csv = 'c:\temp\paststudents.csv'
 
 
 
-##End of user defined variables ## 
+## End of user defined variables ## 
 
 
 
-#Configure TASS URL parameters
+# Configure TASS URL parameters
 
 $parameters = @{
 Endpoint = $endpoint
@@ -53,7 +53,7 @@ Parameters = $parameters
 TokenKey = $tokenKey}
 
 
-#Convert get-date to datetime
+# Convert get-date to datetime
 $convertDate = [Datetime]::ParseExact(((Get-Date).AddDays(-1)).toshortdatestring(), 'dd/MM/yyyy', $null)
 
 
@@ -103,7 +103,7 @@ function Get-TASSUrlRequest ($Endpoint, $Method, $AppCode, $CompanyCode, $ApiVer
 
 # Generate TASS URL
 $url = Get-TASSUrlRequest @parameters
-# invoke web request
+# Invoke web request
 $request = Invoke-RestMethod $url
-#return students and export
+# Return students and export
 $request.students.general_details | Where-Object {[datetime]::parseexact($_.date_of_leaving, 'dd/MM/yyyy', $null) -eq $convertDate} | export-csv $csv
