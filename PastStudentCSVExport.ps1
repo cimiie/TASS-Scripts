@@ -8,7 +8,7 @@
 # Example date of leaving = 22/02/2020, running this script at 3:00AM 23/02/2020 will return all students where dol = 22/02/2020
 
 
-# set below variables are required
+# set below variables as required
 
 # Generated in TASS API Gateway Maintenance program.
 $tokenKey    = 'x8FWQUedjyiUGlTf5appPQ=='
