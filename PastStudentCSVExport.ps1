@@ -28,8 +28,6 @@ $method      = "getStudentsDetails"
 # TASS API endpoint.
 $endpoint    = "https://api.tasscloud.com.au/tassweb/api/"
 
-# Parameters to pass through in API call.
-$parameters  = '{"currentstatus":"noncurrent"}'
 
 #Location to export CSV.
 
