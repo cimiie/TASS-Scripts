@@ -1,14 +1,14 @@
-# Created by Trevor Ciminelli 
-# TASS token and URL creation created by Sam Fisher(The Alpha School System)
-# Created using documentation located at https://github.com/TheAlphaSchoolSystemPTYLTD
-# Date created: 23/02/2020
+# Created by Trevor Ciminelli.
+# TASS token and URL creation created by Sam Fisher(The Alpha School System).
+# Created using documentation located at https://github.com/TheAlphaSchoolSystemPTYLTD.
+# Date created: 23/02/2020.
 
 # This script will return non-current students of the previous day and export to CSV.
-# Script must be run after midnight(12:00AM) and will return students made non-current the day before
-# Example date of leaving = 22/02/2020, running this script at 3:00AM 23/02/2020 will return all students where dol = 22/02/2020
+# Script must be run after midnight(12:00AM) and will return students made non-current the day before.
+# Example date of leaving = 22/02/2020, running this script at 3:00AM 23/02/2020 will return all students where dol = 22/02/2020.
 
 
-# Set below variables as required
+# Set below variables as required.
 
 # Generated in TASS API Gateway Maintenance program.
 $tokenKey    = 'x8FWQUedjyiUGlTf5appPQ=='
@@ -31,7 +31,7 @@ $endpoint    = "https://api.tasscloud.com.au/tassweb/api/"
 # Parameters to pass through in API call.
 $parameters  = '{"currentstatus":"noncurrent"}'
 
-#Location to export CSV
+#Location to export CSV.
 
 $csv = 'c:\temp\paststudents.csv'
 
@@ -40,10 +40,12 @@ $csv = 'c:\temp\paststudents.csv'
 ## End of user defined variables ## 
 
 
+# Parameters to pass through in API call.
+$parameters  = '{"currentstatus":"noncurrent"}'
 
-# Configure TASS URL parameters
+# Configure TASS URL parameters.
 
-$parameters = @{
+$URLparameters = @{
 Endpoint = $endpoint
 Method = $method
 AppCode = $appCode
@@ -53,7 +55,7 @@ Parameters = $parameters
 TokenKey = $tokenKey}
 
 
-# Convert get-date to datetime
+# Convert get-date to datetime.
 $convertDate = [Datetime]::ParseExact(((Get-Date).AddDays(-1)).toshortdatestring(), 'dd/MM/yyyy', $null)
 
 
@@ -101,9 +103,9 @@ function Get-TASSUrlRequest ($Endpoint, $Method, $AppCode, $CompanyCode, $ApiVer
 }
 
 
-# Generate TASS URL
-$url = Get-TASSUrlRequest @parameters
-# Invoke web request
+# Generate TASS URL.
+$url = Get-TASSUrlRequest @URLparameters
+# Invoke web request.
 $request = Invoke-RestMethod $url
-# Return students and export
+# Return students and export.
 $request.students.general_details | Where-Object {[datetime]::parseexact($_.date_of_leaving, 'dd/MM/yyyy', $null) -eq $convertDate} | export-csv $csv
